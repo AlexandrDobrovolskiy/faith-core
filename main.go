@@ -4,11 +4,14 @@ import (
 	"faith-core/app"
 	"faith-core/controllers"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/gorilla/mux"
 )
+
+var Server *http.Server
 
 func main() {
 
@@ -25,8 +28,10 @@ func main() {
 
 	fmt.Println(port)
 
-	err := http.ListenAndServe(":"+port, router) //Launch the app, visit localhost:8000/api
-	if err != nil {
-		fmt.Print(err)
+	Server = &http.Server{
+		Addr:    "0.0.0.0:" + port,
+		Handler: router,
 	}
+
+	log.Fatal(Server.ListenAndServe()) //Launch the app, visit localhost:8000/api
 }

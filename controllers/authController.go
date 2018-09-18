@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"faith-core/models"
 	u "faith-core/utils"
+	"fmt"
 	"net/http"
 )
 
@@ -28,6 +29,8 @@ var Authenticate = func(w http.ResponseWriter, r *http.Request) {
 		u.Respond(w, u.Message(false, "Invalid request"))
 		return
 	}
+
+	fmt.Println("Trying to login")
 
 	resp := models.Login(account.Phone, account.Uuid)
 	u.Respond(w, resp)

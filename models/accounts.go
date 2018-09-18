@@ -35,6 +35,10 @@ func (account *Account) Validate() (map[string]interface{}, bool) {
 		return u.Message(false, "Name is too short"), false
 	}
 
+	if account.Uuid == "" {
+		return u.Message(false, "Unique id is not provided"), false
+	}
+
 	//Email must be unique
 	temp := &Account{}
 
